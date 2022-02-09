@@ -1,0 +1,161 @@
+WindowManager:
+    MenuScreen:
+    SubmitPageScreen:
+    SuccessPage:
+    FailurePage:
+
+<MenuScreen@Screen>:
+    name: "menu"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        padding: 10
+        spacing: 10
+        Label:
+            text: "Pure Verbal Math"
+            font_size: 35
+            background_color:(0,0,0,0)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle: 
+                    size: self.size
+                    pos: self.pos
+            bold: True
+            italic: True
+        Button:
+            text: "Add"
+            font_size: 20
+            bold: True
+            italic: True
+            size_hint: .6 , .6
+            pos_hint: {"right": 0.8}
+            background_color: (0, 1, 0, 1)
+            on_release:  
+                app.PlayGame("Add")
+                app.root.current = "submit"
+                
+        Button:
+            text: "Subtract"
+            font_size: 20
+            bold: True
+            italic: True
+            size_hint: .6 , .6
+            pos_hint: {"right": 0.8}
+            background_color: (1, 0, 0, 1)
+            on_release: 
+                app.PlayGame("Subtract")
+                app.root.current = "submit"
+
+        Button:
+            text: "Multiply"
+            font_size: 20
+            bold: True
+            italic: True
+            size_hint: .6 , .6
+            pos_hint: {"right": 0.8}
+            background_color: (182/255, 66/255, 245/255, 1)
+            on_release: 
+                app.PlayGame("Multiply")
+                app.root.current = "submit"
+
+        Button:
+            text: "Divide"
+            font_size: 20
+            bold: True
+            italic: True
+            size_hint: .6 , .6
+            pos_hint: {"right": 0.8}
+            background_color: (173/255, 216/255, 230/255, 1)
+            on_release: 
+                app.PlayGame("Divide")
+                app.root.current = "submit"
+
+        Button:
+            text: "Mix"
+            font_size: 20
+            bold: True
+            italic: True
+            size_hint: .6 , .6
+            pos_hint: {"right": 0.8}
+            background_color: (1, 0.753, 0.796, 1)
+            on_release: 
+                app.PlayGame("Mix", True)
+                app.root.current = "submit"
+
+        Button:
+            text: "Exit"
+            font_size: 20
+            bold: True
+            italic: True
+            size_hint: .6 , .6
+            pos_hint: {"right": 0.8}
+
+<SubmitPageScreen@Screen>:
+    name: "submit"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        Button:
+            text: "%s"%(app.display_message)
+            font_size: 35
+            bold: True
+            italic: True
+            background_color: (0, 0, 1, 1)
+            on_release: 
+                app.RecordVoice()
+                app.root.current = "success" if app.check_answer == True else "failure"
+
+<SuccessPage@Screen>:
+    name: "success"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        padding: 10
+        spacing: 10
+        Label:
+            text: "Success!!"
+            font_size: 35
+            background_color:(0, 235/255, 0, 1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle: 
+                    size: self.size
+                    pos: self.pos
+        BoxLayout:
+            Button:
+                text: "Continue"
+                font_size: 35
+            Button:
+                text: "Leave"
+                font_size: 35
+                background_color: (1, 0, 0, 1)
+                on_release:
+                    app.root.current = "menu"
+
+<FailurePage@Screen>:
+    name: "failure"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        padding: 10
+        spacing: 10
+        Label:
+            text: "Failure"
+            font_size: 35
+            background_color:(1, 0, 0, 1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle: 
+                    size: self.size
+                    pos: self.pos
+        BoxLayout:
+            Button:
+                text: "Continue"
+            Button:
+                text: "Leave"
+                background_color: (1, 0, 0, 1)
+                on_release:
+                    app.root.current = "menu"
